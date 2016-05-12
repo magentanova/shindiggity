@@ -1,7 +1,6 @@
 {
-  "name": "conf-screen",
-  "version": "0.0.2",
-  "description": "Auto-Conf-Screen - work on your schedule, don't let it work you.",
+  "name": "universal-js-boilerplate",
+  "version": "2.3.1",
   "author": "Matthew Keas (@matthiasak)",
   "license": "MIT",
   "main": "app.js",
