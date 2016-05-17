@@ -41,11 +41,10 @@ import fetch from "isomorphic-fetch"
 
 import DOM from 'react-dom'
 import React, {Component} from 'react'
+import EventsDash from './myEvents'
 
 function app() {
-    // start app
-    // new Router()
-    DOM.render(<p>test 2</p>, document.querySelector('.container'))
+    DOM.render(<EventsDash />, document.querySelector('.container'))
 }
 
 app()
