@@ -41,10 +41,42 @@ import fetch from "isomorphic-fetch"
 
 import DOM from 'react-dom'
 import React, {Component} from 'react'
+import Backbone from 'backbone'
 import EventsDash from './myEvents'
+import EventDetailContainer from './eventDetail'
+import LogInPage from './login'
 
 function app() {
-    DOM.render(<EventsDash />, document.querySelector('.container'))
+
+	const ElControl = Backbone.Router.extend({
+		routes: {
+			login: 'showLogin',
+			eventDash: 'showEventDash',
+			"eventDetail/:id": 'showEventDetail',
+			logout: "doLogOut",
+			"*anything": 'showLogin'
+		},
+
+		initialize: function() {
+
+		},
+
+		showLogin: function() {
+			DOM.render(<LogInPage />, document.querySelector('.container'))
+		},
+
+		showEventDash: function() {
+			DOM.render(<EventsDash />, document.querySelector('.container'))
+		},
+
+		showEventDetail: function(id) {
+			DOM.render(<EventDetailContainer eventId={id} />, 
+				document.querySelector('.container'))
+		}
+	})
+
+	const ec = new ElControl()
+	Backbone.history.start()
 }
 
 app()

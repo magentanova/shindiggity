@@ -127,41 +127,96 @@ body {
  * App code
  */
 
- input {
-    padding: 1%;
+ 
+input {
+    padding: 4%;
+    margin: 5% auto;
+    outline: none;
+    display: block;
+    width: 80%;
+}
+
+ input:focus {
+    outline: none;
+    border: 3px solid #555;
  }
+
+ button,input[type="submit"] {
+    border-radius: 5%;
+    background: #ddd;
+    color: #555;
+    margin: 4%;
+    padding: 4%;
+    border: none;
+    -webkit-appearance: none;
+    width: auto;
+} 
+
+.remove {
+    background: crimson;
+    color: #ddd;
+}
 
 .container {
     max-width: 80%;
     margin: 0 auto;
     text-align: center;
-    
-    .eventAdder {
-        form {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
-            border: 3px solid black;
-            background: #ddd;
-            padding: 2%;
-
-            input {
-                margin: 2%;
-            }
-        }
-    }
-
+  
     .card {
         background: cornflowerblue;
-        max-width: 30%;
         padding: 2%;
-        margin: 2%;
-        
-        p {
+        margin: 4%;
+    }
+
+    .header {
+        .nav {
+            background: #555;
+            margin: 3%;
+            padding: 4%;
+
+            a {
+                margin: 0 4%;
+                padding: 1%;
+                background: #ddd;
+                border-radius: 5%;
+                color: #555;
+                text-decoration: none;
+            }
 
         }
     }
+  
+    .eventsDash {
+       .eventAdder {
+           div.formContainer {
+               position: fixed;
+               left: 50%;
+               top: 50%;
+               transform: translate(-50%,-50%);
+               border: 3px solid black;
+               background: #ddd;
+               padding: 2%;
+
+               input {
+                   margin: 2%;
+               }
+           }
+       }
+       .card {
+            display: inline-block;
+            width: 30%;
+       }
+    }
+
+    .loginContainer {
+        .card {
+            max-width: 45%;
+            margin: 4% auto;
+        }
+    }
+
+
+
 }
 
 

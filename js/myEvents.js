@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import Actions from './actions'
 import Backbone from 'backbone'
+import Header from './header'
 
 const EventsDash = React.createClass({
 
 	_recogerFiestas: function() {
 		Actions.queFiestasHay().then((response) => {
+			console.log(response.data)
 			this.setState({
 				fiestas: response.data
 			})
@@ -19,13 +21,18 @@ const EventsDash = React.createClass({
 
 	getInitialState: function() {
 		return {
-			fiestas: []
+			fiestas: [{
+				title: 'stupid',
+				location: 'party',
+				when: 'no one likes'
+			}]
 		}
 	},
 
 	render: function() {
 		return (
 			<div className="eventsDash" >
+				<Header />
 				<EventList fiestas={this.state.fiestas} />
 				<AddEvent />
 			</div>
@@ -35,8 +42,8 @@ const EventsDash = React.createClass({
 
 const EventList = React.createClass({
 
-	makeEvent: function(fiestaObj) {
-		return <Event fiesta={fiestaObj} />
+	makeEvent: function(fiestaObj,i) {
+		return <Event key={i} fiesta={fiestaObj} />
 	},
 
 	render: function() {
@@ -50,11 +57,16 @@ const EventList = React.createClass({
 
 const Event = React.createClass({
 	render: function() {
+		var fiesta = this.props.fiesta
 		return (
 			<div className="event card" >
-				<p>{this.props.fiesta.title}</p>
-				<p>{this.props.fiesta.location}</p>
-				<p>{new Date(this.props.fiesta.when).toLocaleString()}</p>
+				<p>{fiesta.title}</p>
+				<p>{fiesta.location}</p>
+				<p>{new Date(fiesta.when).toLocaleString()}</p>
+				<button className="remove" onClick={function(){Actions.noMas(fiesta)} }>
+					cancel
+				</button>
+				<button onClick={function(){location.hash = `eventDetail/${fiesta.objectId}` }}>manage</button>
 			</div>
 			)
 	}
@@ -63,6 +75,7 @@ const Event = React.createClass({
 const AddEvent = React.createClass({
 
 	_handlePartyAdd: function(e) {
+		console.log('submitting')
 		e.preventDefault()
 		let theStuff = e.currentTarget.elements,
 			formData = {}
@@ -73,7 +86,6 @@ const AddEvent = React.createClass({
 		this.setState({
 			formDisplay: 'none'
 		})
-		Backbone.Events.trigger('poll')
 	},
 
 	_showForm: function() {
@@ -92,12 +104,15 @@ const AddEvent = React.createClass({
 	render: function() {
 		return (
 			<div className="eventAdder" >
-				<form onSubmit={this._handlePartyAdd} style={{display:this.state.formDisplay}} >
-					<input name="title" placeholder="enter event title" />
-					<input name="location" placeholder="enter event location" />
-					<input type="datetime-local" name="when"/>
-					<input className="button-primary" type="submit" defaultValue="let's party"/><br/>
-				</form >
+				<div style={{display:this.state.formDisplay}} className="formContainer">
+					<form onSubmit={this._handlePartyAdd} >
+						<input name="title" placeholder="enter event title" />
+						<input name="location" placeholder="enter event location" />
+						<input type="datetime-local" name="when" />
+						<input className="button-primary" type="submit" defaultValue="let's party"/><br/>
+					</form >
+					<button onClick={()=>{this.setState({formDisplay:'none'})}}>X</button>
+				</div>
 				<button onClick={this._showForm}>+party!</button>
 			</div>
 			)
