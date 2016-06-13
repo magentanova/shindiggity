@@ -21,7 +21,7 @@ const Fiesta = function(title,location,when,host) {
 	}
 }
 
-const ACTIONS = {
+const Actions = {
 
 	adios: function() {
 		Backendless.UserService.logout()
